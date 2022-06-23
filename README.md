@@ -269,7 +269,7 @@ We will assume a basic text file with some basic data:
 hello,world,1
 great,work,0
 another,day,3
-another,project,17
+another,project,7
 ```
 
 As you can see, there are four lines, meaning the macro will iterate four times.
@@ -310,10 +310,42 @@ file from above as the source.
 ```
 
 ```C++
-std::string myString1: = "hello world";
-std::string myString0: = "great work";
-std::string myString3: = "another day";
-std::string myString17: = "another project";
+std::string myString1 = "hello world";
+std::string myString0 = "great work";
+std::string myString3 = "another day";
+std::string myString7 = "another project";
 ```
+
+### Multiple Tokens on One Line
+
+For macros that contains more than one expansion tokens, the user must ensure that
+each token expands equally. Take, for example:
+
+```C++
+std::string myString@1:5: = "Your number is @1:5:!";
+```
+
+As you can see, there are two tokens present. Each token expands 5 times. Since
+both tokens expand five times, this expansion is considered valid. However, if
+they weren't:
+
+```C++
+std::string myString@1:5: = "Your number is @1:7:!";
+```
+
+Then how would Magikhats interpret this expansion? It couldn't. It doesn't make
+sense to create 5 `myString` variables assigned with 7 different values. Therefore,
+each token must be the same size. When using comma delimited sources, this rule
+also applies.
+
+# Contributing to Magikhats
+
+If you would like to contribute to Magikhats, please feel free to get in contact
+through Github, submit pull requests (and appropriately document and explain the
+changes) and I will go through them. This project is something I've been meaning
+to complete for awhile, as I have found myself wishing there was a sufficiently
+powerful way of meta-programming redundant data. The aim of this project is to be
+simple and fast--define the macro inline as fast you would program that line without
+and run magikhats on the source file.
 
 
