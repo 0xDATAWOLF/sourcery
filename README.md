@@ -1,4 +1,4 @@
-# Magikhats - A Macro Engine for C++ Source
+# Magikhats - A Macro Engine for C++ Source Files
 
 **CURRENTLY A WIP, NOT READY FOR USE!**
 
@@ -56,16 +56,16 @@ token. When Magikhats encounters any additional pairs of `@@`, it will convert i
 to `@` for you. Below is an example of how this escape sequence works:
 
 ```C++
-@@std::string myStringEscaped = "This @@ is escaped, this @1:4 is not.\n";
+@@std::string myStringEscaped = "This @@1:4 is escaped, this @1:4 is not.\n";
 ```
 
 And Magikhats will parse it as:
 
 ```C++
-std::string myStringEscape = "This @ is escaped, this 1 is not.\n";
-std::string myStringEscape = "This @ is escaped, this 2 is not.\n";
-std::string myStringEscape = "This @ is escaped, this 3 is not.\n";
-std::string myStringEscape = "This @ is escaped, this 4 is not.\n";
+std::string myStringEscape = "This @1:4 is escaped, this 1 is not.\n";
+std::string myStringEscape = "This @1:4 is escaped, this 2 is not.\n";
+std::string myStringEscape = "This @1:4 is escaped, this 3 is not.\n";
+std::string myStringEscape = "This @1:4 is escaped, this 4 is not.\n";
 ```
 
 ### Alpha Sequences
