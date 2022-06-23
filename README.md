@@ -1,5 +1,7 @@
 # Magikhats - A Macro Engine for C++ Source
 
+**CURRENTLY A WIP, NOT READY FOR USE!**
+
 Magikhats is a macro engine for C++ source files that allows the user to quickly
 expand redundant information out across multiple lines. Magikhats supports numerical,
 alphabetical, and comma delimited sources.
