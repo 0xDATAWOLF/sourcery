@@ -1,12 +1,12 @@
-# Magikhats - A Macro Engine for C++ Source Files
+# Sourcery - A Macro Engine for C++ Source Files
 
 **CURRENTLY A WIP, NOT READY FOR USE!**
 
-Magikhats is a macro engine for C++ source files that allows the user to quickly
-expand redundant information out across multiple lines. Magikhats supports numerical,
+Sourcery is a macro engine for C++ source files that allows the user to quickly
+expand redundant information out across multiple lines. Sourcery supports numerical,
 alphabetical, and comma delimited sources.
 
-With Magikhats, you can turn this inline text macro:
+With Sourcery, you can turn this inline text macro:
 
 ```C++
 @@SetInputState(&prevInput, &currInput, (GetKeyState('@A:Z') & 0x8000));
@@ -29,12 +29,12 @@ SetInputState(&prevInput, &currInput, (GetKeyState('Z') & 0x8000));
 
 # Quickstart Guide
 
-There are currently no available binaries for Magikhats, so you will need to
-compile Magikhats from source:
+There are currently no available binaries for Sourcery, so you will need to
+compile Sourcery from source:
 
 1. Clone the repository to any directory of your choice.
 
-	``` git clone https://github.com/0xDATAWOLF/magikhats.git ```
+	``` git clone https://github.com/0xDATAWOLF/sourcery.git ```
 
 2. Configure the project using CMake.
 
@@ -46,22 +46,22 @@ compile Magikhats from source:
 
 4. Copy the executable from the build binary directory. The relative directory is shown:
 
-	``` ./build/bin/Debug/pwshbuild.exe ```
+	``` ./build/bin/Debug/sourcery.exe ```
 
 5. Paste the executable somewhere that you can add it to your environment variable PATHs. An example is shown:
 
-	``` C:\Program Files (Custom)\binaries\magikhats.exe ```
+	``` C:\Program Files (Custom)\binaries\sourcery.exe ```
 
-6. Add magikhats to your environment variables PATHs.
+6. Add Sourcery to your environment variables PATHs.
 
 # Useage Documentation
 
-### Using Magikhats
+### Using Sourcery
 
-Magikhats is a CLI application that takes a source file as its input.
+Sourcery is a CLI application that takes a source file as its input.
 
 ```
-C:\Development\Projects\myawesomeproject> magikhats ./src/main.cpp
+C:\Development\Projects\myawesomeproject> sourcery ./src/main.cpp
 ```
 
 <table width="100%">
@@ -100,7 +100,7 @@ C:\Development\Projects\myawesomeproject> magikhats ./src/main.cpp
 	<tr>
 		<td>--check-cache</td>
 		<td>
-			Displays a list of source files that Magikhats has cached.
+			Displays a list of source files that Sourcery has cached.
 		</td>
 	</tr>
 	<tr>
@@ -121,7 +121,7 @@ C:\Development\Projects\myawesomeproject> magikhats ./src/main.cpp
 	<tr>
 		<td>--skip-invalid</td>
 		<td>
-			Magikhats will skip any invalid macro expansions and continue parsing the
+			Sourcery will skip any invalid macro expansions and continue parsing the
 			file.
 		</td>
 	</tr>
@@ -129,8 +129,8 @@ C:\Development\Projects\myawesomeproject> magikhats ./src/main.cpp
 
 ### Default Behaviors
 
-Once Magikhats is invoked, it will begin parsing the file for any macros to expand.
-Magikhats will overwrite the existing source file with the expanded macros should
+Once Sourcery is invoked, it will begin parsing the file for any macros to expand.
+Sourcery will overwrite the existing source file with the expanded macros should
 they all be valid. This behavior can be overriden with `--skip-invalid` and will
 skip over any invalid macros should it encounter any. Additionally, you can preview
 the changes before committing them with `--show-preview` and `--show-full-preview`.
@@ -144,32 +144,32 @@ changes back to its last known state by invoking `--revert` in one of two ways:
 With the source file:
 
 ```
-C:\Development\Projects\myawesomeproject> magikhats ./src/main.cpp --revert
+C:\Development\Projects\myawesomeproject> sourcery ./src/main.cpp --revert
 ```
 
-Or without (Magikhats will know the last file it touched):
+Or without (Sourcery will know the last file it touched):
 
 ```
-C:\Development\Projects\myawesomeproject> magikhats --revert
+C:\Development\Projects\myawesomeproject> sourcery --revert
 ```
 
-Magikhats will cache all the macro expansions for you. You can revert a file as
+Sourcery will cache all the macro expansions for you. You can revert a file as
 many times as you want so long as it exists within the cache. You can also "unrevert"
 the changes back to the most recent version of the file with `--unrevert`. The most
 recent file is the source file before `--revert` was invoked.
 
 ### The Line Header Token and the Escape Token
 
-In order for Magikhats to find a line to parse, it must first be headed by `@@`.
+In order for Sourcery to find a line to parse, it must first be headed by `@@`.
 The example below shows how to designate a particular line of code to be parsed
-by Magikhats.
+by Sourcery.
 
 ```C++
 std::vector<int> myVector;
 @@myVector.push_back(@1:4:);
 ```
 
-When Magikhats encounters the line header token, it will begin evaluating the line
+When Sourcery encounters the line header token, it will begin evaluating the line
 for any sources to evaluate. In the example above, it will expand to:
 
 ```C++
@@ -181,14 +181,14 @@ myVector.push_back(4);
 ```
 
 Additionally, you can escape any `@` symbols with `@@` after the line header
-token. When Magikhats encounters any additional pairs of `@@`, it will convert it
+token. When Sourcery encounters any additional pairs of `@@`, it will convert it
 to `@` for you. Below is an example of how this escape sequence works:
 
 ```C++
 @@std::string myStringEscaped = "This @@1:4: is escaped, this @1:4: is not.\n";
 ```
 
-And Magikhats will parse it as:
+And Sourcery will parse it as:
 
 ```C++
 std::string myStringEscape = "This @1:4: is escaped, this 1 is not.\n";
@@ -199,7 +199,7 @@ std::string myStringEscape = "This @1:4: is escaped, this 4 is not.\n";
 
 ### Alphabetical Sequences
 
-Magikhats can generate a series of alpha characters for you. In order for Magikhats
+Sourcery can generate a series of alpha characters for you. In order for Sourcery
 to know where to stop, you must provide a range. The case of the range determines the
 output case, such as A-Z or a-z. You can set the start of the range to any character.
 In order for the input to be valid, the range must be supplied correctly and share
@@ -221,7 +221,7 @@ std::string charString = "This is the character: F.\n";
 
 Similar to alphabetical sequences, you can generate a series of numbers as well.
 Unlike alphabetical sequences, however, you need to end the numerical sequence with
-an additional colon in order for Magikhats to recognize the last digit of the 
+an additional colon in order for Sourcery to recognize the last digit of the 
 sequence. The order also matters, as the sequence must begin on the left of the
 number scale and end on the right--or more simply the start of the range is the
 smallest value, and the end of the range is the largest value.
@@ -275,24 +275,24 @@ another,project,7
 As you can see, there are four lines, meaning the macro will iterate four times.
 Since each line contains three entries, there are three indexable items you can
 use within the macro. Since the data is non-sequential, meaning that the output
-is not able to be generated at runtime, Magikhats will assume a few things about
+is not able to be generated at runtime, Sourcery will assume a few things about
 your data:
 
 1. The data within an entry is always valid.
 
-	Magikhats does not check the data nor will it parse data. It is the user's
+	Sourcery does not check the data nor will it parse data. It is the user's
 	responsibility to ensure that the data they are inputting is correctly formatted.
 
 2. Empty entries are valid.
 
-	If there are any empty entries within the data, Magikhats will treat it as valid.
-	Should `great,work,0` instead be `great,,0` and you use the second index, Magikhats
+	If there are any empty entries within the data, Sourcery will treat it as valid.
+	Should `great,work,0` instead be `great,,0` and you use the second index, Sourcery
 	will simply not put anything there.
 
 3. Out-of-bound entries are valid.
 
-	Likewise, if you read beyond the column count and index an invalid entry, Magikhats
-	will treat it as valid and treat it is as an empty value. Therefore, Magikhats will
+	Likewise, if you read beyond the column count and index an invalid entry, Sourcery
+	will treat it as valid and treat it is as an empty value. Therefore, Sourcery will
 	not put anything in there.
 
 4. Asymetrical data is valid.
@@ -301,7 +301,7 @@ your data:
 	Therefore, it is up to the user to ensure the data is symmetrical or take asymetrical
 	data into consideration while designing their macro.
 
-In order for Magikhats to tell that you are using a source, you must prefix with `@$`
+In order for Sourcery to tell that you are using a source, you must prefix with `@$`
 followed by the column index followed by a colon. The example below uses the basic text
 file from above as the source.
 
@@ -333,19 +333,19 @@ they weren't:
 std::string myString@1:5: = "Your number is @1:7:!";
 ```
 
-Then how would Magikhats interpret this expansion? It couldn't. It doesn't make
+Then how would Sourcery interpret this expansion? It couldn't. It doesn't make
 sense to create 5 `myString` variables assigned with 7 different values. Therefore,
 each token must be the same size. When using comma delimited sources, this rule
 also applies.
 
-# Contributing to Magikhats
+# Contributing to Sourcery
 
-If you would like to contribute to Magikhats, please feel free to get in contact
+If you would like to contribute to Sourcery, please feel free to get in contact
 through Github, submit pull requests (and appropriately document and explain the
 changes) and I will go through them. This project is something I've been meaning
 to complete for awhile, as I have found myself wishing there was a sufficiently
 powerful way of meta-programming redundant data. The aim of this project is to be
 simple and fast--define the macro inline as fast you would program that line without
-and run magikhats on the source file.
+and run Sourcery on the source file.
 
 
