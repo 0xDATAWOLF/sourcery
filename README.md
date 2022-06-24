@@ -1,10 +1,10 @@
-# Sourcery - A Macro Engine for C++ Source Files
+# Sourcery - An Intuitive C++ Preprocessor
 
 **CURRENTLY A WIP, NOT READY FOR USE!**
 
-Sourcery is a macro engine for C++ source files that allows the user to quickly
+Sourcery is a preprocessor engine for C++ source files that allows the user to quickly
 expand redundant information out across multiple lines. Sourcery supports numerical,
-alphabetical, and comma delimited sources.
+alphabetical, and comma delimited sources for macros.
 
 With Sourcery, you can turn this inline text macro:
 
