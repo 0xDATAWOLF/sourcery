@@ -1,10 +1,14 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(magikhats)
+project(sourcery)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-add_executable(magikhats ./src/main.cpp)
+add_executable(sourcery
+./src/main.cpp
+./src/fhandle.h
+./src/smemory.h
+./src/primitives.h)
 
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT magikhats)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT sourcery)
